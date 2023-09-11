@@ -150,6 +150,8 @@ namespace HW_3_Class_Fraction
             Console.WriteLine("\n=============== Set values for fraction and reduction fraction ====================\n");
             fraction.CH = 5;
             fraction.ZN = 3;
+            Console.Write($"Fraction numerator = {fraction.CH}\nFraction denumenator = {fraction.ZN}\n" +
+                $"Fraction = {fraction}\nAbbreviated fraction = ");
             fraction.Print();
             Console.ReadKey();
             Console.WriteLine("\n=============== Arithmetic operations on fractions ====================\n");
