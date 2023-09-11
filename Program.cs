@@ -88,30 +88,35 @@ namespace HW_3_Class_Fraction
             }
 
 
-            public static Fraction operator +(Fraction a, Fraction b)
+            public static Fraction operator + (Fraction a, Fraction b)
             {
                 return new Fraction(a.CH * b.ZN + b.CH * a.ZN,
                     a.ZN * b.ZN);
             }
 
-            public static Fraction operator -(Fraction a, Fraction b)
+            public static Fraction operator - (Fraction a, Fraction b)
             {
 
                 return new Fraction(a.CH * b.ZN - b.CH * a.ZN,
                     a.ZN * b.ZN);
             }
 
-            public static Fraction operator *(Fraction a, Fraction b)
+            public static Fraction operator * (Fraction a, Fraction b)
             {
                 return new Fraction(a.CH * b.CH, a.ZN * b.ZN);
             }
 
-            public static Fraction operator *(Fraction a, int num)
+            public static Fraction operator * (Fraction a, int num)
             {
                 return new Fraction(a.CH * num, a.ZN);
             }
 
-            public static bool operator >(Fraction a, Fraction b)
+            public static Fraction operator / (Fraction a, Fraction b)
+            {
+                return new Fraction(a.CH * b.ZN, b.CH * a.ZN);
+            }
+
+            public static bool operator > (Fraction a, Fraction b)
             {
                 if (!a.CheckDenominator() && !b.CheckDenominator())
                 {
@@ -119,7 +124,7 @@ namespace HW_3_Class_Fraction
                 }
                 else return false;
             }
-            public static bool operator <(Fraction a, Fraction b)
+            public static bool operator < (Fraction a, Fraction b)
             {
                 if (!a.CheckDenominator() && !b.CheckDenominator())
                 {
@@ -164,8 +169,10 @@ namespace HW_3_Class_Fraction
                 "\n====================================================================\n");
             Console.WriteLine("Fraction-1 = " + fraction1 +
                 "\nFraction-2 = " + fraction2 + "\n");
+            Fraction f1 = new Fraction();
+            Fraction f2 = new Fraction();
 
-            Console.WriteLine("Is the fraction 1 greater than the fraction 2 ? \n Answer :" + fraction2.Equals(fraction1) +
+            Console.WriteLine("Is the fraction f1 = the fraction f2 ? \n Answer :" + f1.Equals(f2) +
                 "\n====================================================================\n");
             Console.ReadKey();
         }
