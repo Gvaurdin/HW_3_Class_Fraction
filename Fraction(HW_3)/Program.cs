@@ -88,35 +88,35 @@ namespace HW_3_Class_Fraction
             }
 
 
-            public static Fraction operator + (Fraction a, Fraction b)
+            public static Fraction operator +(Fraction a, Fraction b)
             {
                 return new Fraction(a.CH * b.ZN + b.CH * a.ZN,
                     a.ZN * b.ZN);
             }
 
-            public static Fraction operator - (Fraction a, Fraction b)
+            public static Fraction operator -(Fraction a, Fraction b)
             {
 
                 return new Fraction(a.CH * b.ZN - b.CH * a.ZN,
                     a.ZN * b.ZN);
             }
 
-            public static Fraction operator * (Fraction a, Fraction b)
+            public static Fraction operator *(Fraction a, Fraction b)
             {
                 return new Fraction(a.CH * b.CH, a.ZN * b.ZN);
             }
 
-            public static Fraction operator * (Fraction a, int num)
+            public static Fraction operator *(Fraction a, int num)
             {
                 return new Fraction(a.CH * num, a.ZN);
             }
 
-            public static Fraction operator / (Fraction a, Fraction b)
+            public static Fraction operator /(Fraction a, Fraction b)
             {
                 return new Fraction(a.CH * b.ZN, b.CH * a.ZN);
             }
 
-            public static bool operator > (Fraction a, Fraction b)
+            public static bool operator >(Fraction a, Fraction b)
             {
                 if (!a.CheckDenominator() && !b.CheckDenominator())
                 {
@@ -124,7 +124,7 @@ namespace HW_3_Class_Fraction
                 }
                 else return false;
             }
-            public static bool operator < (Fraction a, Fraction b)
+            public static bool operator <(Fraction a, Fraction b)
             {
                 if (!a.CheckDenominator() && !b.CheckDenominator())
                 {
@@ -145,36 +145,81 @@ namespace HW_3_Class_Fraction
                 else return false;
             }
         }
-
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("\n=============== Create and show fraction ====================\n");
-            Fraction fraction = new Fraction();
-            Console.WriteLine(fraction);
-            Console.ReadKey();
-            Console.WriteLine("\n=============== Set values for fraction and reduction fraction ====================\n");
-            fraction.CH = 5;
-            fraction.ZN = 3;
-            Console.Write($"Fraction numerator = {fraction.CH}\nFraction denumenator = {fraction.ZN}\n" +
-                $"Fraction = {fraction}\nAbbreviated fraction = ");
-            fraction.Print();
-            Console.ReadKey();
-            Console.WriteLine("\n=============== Arithmetic operations on fractions ====================\n");
-            Fraction fraction1 = new Fraction();
-            Fraction fraction2 = fraction + fraction1;
-            Console.WriteLine("Fraction 5/3 + fraction 1/2 = " + fraction2 +
-                "\n====================================================================\n");
-            fraction2 = fraction * fraction1;
-            Console.WriteLine("Fraction 5/3 * fraction 1/2 = " + fraction2 +
-                "\n====================================================================\n");
-            Console.WriteLine("Fraction-1 = " + fraction1 +
-                "\nFraction-2 = " + fraction2 + "\n");
-            Fraction f1 = new Fraction();
-            Fraction f2 = new Fraction();
+            // Создаем список пунктов меню
+            List<string> menuItems = new List<string>
+        {
+            "Пункт меню 1",
+            "Пункт меню 2",
+            "Пункт меню 3",
+            "Выход"
+        };
 
-            Console.WriteLine("Is the fraction f1 = the fraction f2 ? \n Answer :" + f1.Equals(f2) +
-                "\n====================================================================\n");
-            Console.ReadKey();
+            // Индекс выбранного пункта меню
+            int selectedItemIndex = 0;
+
+            while (true)
+            {
+                Console.Clear();
+
+                // Выводим пункты меню с подсветкой выбранного пункта
+                for (int i = 0; i < menuItems.Count; i++)
+                {
+                    if (i == selectedItemIndex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.BackgroundColor = ConsoleColor.Black;
+                    }
+
+                    Console.WriteLine(menuItems[i]);
+                }
+
+                // Считываем нажатую клавишу
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+                // Обработка нажатой клавиши
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (selectedItemIndex > 0)
+                        {
+                            // Перемещаем подсветку вверх
+                            selectedItemIndex--;
+                        }
+                        break;
+
+                    case ConsoleKey.DownArrow:
+                        if (selectedItemIndex < menuItems.Count - 1)
+                        {
+                            // Перемещаем подсветку вниз
+                            selectedItemIndex++;
+                        }
+                        break;
+
+                    case ConsoleKey.Enter:
+                        if (selectedItemIndex == menuItems.Count - 1)
+                        {
+                            // Пользователь выбрал "Выход", завершаем программу
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            // Выполните действие, соответствующее выбранному пункту меню
+                            Console.WriteLine("Вы выбрали: " + menuItems[selectedItemIndex]);
+                            Console.ReadLine(); // Пауза для наглядности
+                        }
+                        break;
+                }
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
+
+
     }
 }
