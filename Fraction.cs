@@ -8,8 +8,20 @@ namespace HW_3_Class_Fraction
 {
     internal class Fraction
     {
-        public int CH { get; set; } = 1;
-        public int ZN { get; set; } = 2;
+        public int CH { get; set; } = 0;
+        private int zn;
+
+        public int ZN
+        {
+            get { return zn; }
+            set
+            {
+                if(value != 0)
+                zn = value;
+                else Console.WriteLine("Error. Denumenator != 0");
+            }
+        }
+
         int integer = 0;
         public Fraction(int cH, int zN)
         {
@@ -18,18 +30,31 @@ namespace HW_3_Class_Fraction
         }
         public Fraction() { }
 
+        public static explicit operator Fraction(double number)
+        {
+            int zn = 1;
+            while (number != Math.Floor(number))
+            {
+                 number *= 10;
+                 zn *= 10;
+            }
+            int ch = (int)number;
+            return new Fraction(ch, zn);
+        }
+
         public void Print()
         {
             Fraction f = new Fraction();
             f.CH = CH;
             f.ZN = ZN;
             Fraction_Reduction(f);
-            if (f.CH == f.ZN || f.CH == 0) Console.WriteLine(f.integer);
+            if (f.CH == f.ZN || f.CH == 0) Console.WriteLine(" = " + f.integer);
             else if (f.CH != f.ZN && f.integer > 0)
             {
-                Console.WriteLine($"{f.integer}({f.CH}/{f.ZN})");
+                Console.WriteLine($" = {f.integer}({f.CH}/{f.ZN})");
             }
-            else Console.WriteLine($"{f.CH}/{f.ZN}");
+            else if (f.CH != CH || f.ZN != ZN) Console.WriteLine($" = {f.CH}/{f.ZN}");
+            else return;
         }
 
 
@@ -39,11 +64,10 @@ namespace HW_3_Class_Fraction
             return ($"{CH}/{ZN}");
         }
 
-        public Fraction input ()
+        public Fraction input()
         {
             int numerator;
             int denominator;
-            Console.WriteLine("Attention! The value of the numerator and denominator must be at least 1 and a maximum of 20.");
             do
             {
                 Console.Write("Enter to value`s numerator : ");
@@ -53,8 +77,8 @@ namespace HW_3_Class_Fraction
                 {
                     Console.WriteLine("Incorrect input. The numerator must be an integer no greater than 20.");
                 }
-            } while (numerator > 20 || numerator < 0);
-
+            } while (numerator > 20 || numerator == 0);
+    
             do
             {
                 Console.Write("Enter to value`s denominator : ");
@@ -64,8 +88,8 @@ namespace HW_3_Class_Fraction
                 {
                     Console.WriteLine("Incorrect input. The numerator must be an integer no greater than 20.");
                 }
-            } while (denominator > 20 || denominator < 0);
-            if (numerator == 0 || denominator == 0)
+            } while (denominator > 20 || denominator == 0);
+            if (denominator == 0 && denominator == 0)
             {
                 Console.WriteLine("The values were entered incorrectly. Fraction not created");
                 return null;
@@ -74,10 +98,12 @@ namespace HW_3_Class_Fraction
             {
                 CH = numerator;
                 ZN = denominator;
-                Console.WriteLine("Fraction created successfully");
+                Console.WriteLine("Fraction created successfully" +
+                    "\n=====================================================\n");
                 return new Fraction(CH, ZN);
             }
         }
+
 
         public void Fraction_Reduction(Fraction f)
         {
@@ -177,6 +203,76 @@ namespace HW_3_Class_Fraction
                 return ((double)this.CH / this.ZN == (double)other.CH / other.ZN);
             }
             else return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        public static bool operator == (Fraction f1, Fraction f2)
+        {
+            return f1.Equals(f2);
+        }
+
+        public static bool operator != (Fraction f1, Fraction f2)
+        {
+            return !(f1 == f2);
+        }
+
+        public static bool operator <= (Fraction f1, int number)
+        {
+            if (!f1.CheckDenominator())
+            {
+                return (double)f1.CH/f1.ZN <= number;
+            }
+            else return false;
+        }
+
+        public static bool operator >= (Fraction f1, int number)
+        {
+            if (!f1.CheckDenominator())
+            {
+                return (double)f1.CH/f1.ZN >= number;
+            }
+            else return false;
+        }
+
+        public static bool operator true(Fraction f)
+        {
+            return f.CH != 0 ? true : false;
+        }
+        public static bool operator false(Fraction f)
+        {
+            return f.CH == 0 ? true : false;
+        }
+
+        public static Fraction operator | (Fraction f1, Fraction f2)
+        {
+            if (f1.CH != 0 || f2.CH != 0)
+            {
+                return f2;
+            }
+            else return new Fraction();
+        }
+
+        public static bool operator | (Fraction f1, bool condition)
+        {
+            return condition || (f1.CH != 0);
+        }
+
+        public static bool operator & (Fraction f1, bool condition)
+        {
+            return condition && (f1.CH != 0);
+        }
+
+        public static Fraction operator & (Fraction f1, Fraction f2)
+        {
+            if (f1.CH != 0 && f2.CH != 0)
+            {
+                return f2;
+            }
+            else return new Fraction();
         }
     }
 }

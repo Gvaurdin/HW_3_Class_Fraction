@@ -19,6 +19,8 @@ namespace HW_3_Class_Fraction
             "Multiplication",
             "Division",
             "Comparing",
+            "Logic comparing",
+            "A real number in a fraction",
             "Exit"
         };
 
@@ -85,23 +87,25 @@ namespace HW_3_Class_Fraction
                                     {
                                         Fraction f1 = new Fraction();
                                         Fraction f2 = new Fraction();
-                                        if(f1.input() == null)
+                                        Console.WriteLine("\n==============================================================================================\n" +
+                                            "Attention! The value of the numerator and denominator must be at least 1 and a maximum of 20." +
+                                            "\n==============================================================================================\n");
+                                        if (f1.input() == null)
                                         {
                                             Console.WriteLine("Exit to the main menu.....");
                                             Console.ReadKey();
                                         }
-                                        else if(f2.input() == null)
+                                        else if (f2.input() == null)
                                         {
                                             Console.WriteLine("Exit to the main menu.....");
                                             Console.ReadKey();
                                         }
                                         else
                                         {
-                                            Console.WriteLine("\n==============================================================\n");
                                             Fraction f3 = new Fraction();
                                             f3 = f1 + f2;
                                             Console.Write("(Fraction) " + f1 + " + " +
-                                                " (fraction) " + f2 + " = " + f3 + " = ");
+                                                " (fraction) " + f2 + " = " + f3);
                                             f3.Print();
                                             Console.WriteLine();
                                             Console.ReadKey();
@@ -112,6 +116,9 @@ namespace HW_3_Class_Fraction
                                     {
                                         Fraction f1 = new Fraction();
                                         Fraction f2 = new Fraction();
+                                        Console.WriteLine("\n==============================================================================================\n" +
+                                            "Attention! The value of the numerator and denominator must be at least 1 and a maximum of 20." +
+                                            "\n==============================================================================================\n");
                                         if (f1.input() == null)
                                         {
                                             Console.WriteLine("Exit to the main menu.....");
@@ -124,11 +131,10 @@ namespace HW_3_Class_Fraction
                                         }
                                         else
                                         {
-                                            Console.WriteLine("\n==============================================================\n");
                                             Fraction f3 = new Fraction();
                                             f3 = f1 - f2;
                                             Console.Write("(Fraction) " + f1 + " - " +
-                                                " (fraction) " + f2 + " = " + f3 + " = ");
+                                                " (fraction) " + f2 + " = " + f3);
                                             f3.Print();
                                             Console.WriteLine();
                                             Console.ReadKey();
@@ -139,6 +145,9 @@ namespace HW_3_Class_Fraction
                                     {
                                         Fraction f1 = new Fraction();
                                         Fraction f2 = new Fraction();
+                                        Console.WriteLine("\n==============================================================================================\n" +
+                                            "Attention! The value of the numerator and denominator must be at least 1 and a maximum of 20." +
+                                            "\n==============================================================================================\n");
                                         if (f1.input() == null)
                                         {
                                             Console.WriteLine("Exit to the main menu.....");
@@ -151,11 +160,10 @@ namespace HW_3_Class_Fraction
                                         }
                                         else
                                         {
-                                            Console.WriteLine("\n==============================================================\n");
                                             Fraction f3 = new Fraction();
                                             f3 = f1 * f2;
                                             Console.Write("(Fraction) " + f1 + " * " +
-                                                " (fraction) " + f2 + " = " + f3 + " = ");
+                                                " (fraction) " + f2 + " = " + f3);
                                             f3.Print();
                                             Console.WriteLine();
                                             Console.ReadKey();
@@ -166,6 +174,9 @@ namespace HW_3_Class_Fraction
                                     {
                                         Fraction f1 = new Fraction();
                                         Fraction f2 = new Fraction();
+                                        Console.WriteLine("\n==============================================================================================\n" +
+                                            "Attention! The value of the numerator and denominator must be at least 1 and a maximum of 20." +
+                                            "\n==============================================================================================\n");
                                         if (f1.input() == null)
                                         {
                                             Console.WriteLine("Exit to the main menu.....");
@@ -178,11 +189,10 @@ namespace HW_3_Class_Fraction
                                         }
                                         else
                                         {
-                                            Console.WriteLine("\n==============================================================\n");
                                             Fraction f3 = new Fraction();
                                             f3 = f1 / f2;
                                             Console.Write("(Fraction) " + f1 + " / " +
-                                                " (fraction) " + f2 + " = " + f3 + " = ");
+                                                " (fraction) " + f2 + " = " + f3);
                                             f3.Print();
                                             Console.WriteLine();
                                             Console.ReadKey();
@@ -193,6 +203,9 @@ namespace HW_3_Class_Fraction
                                     {
                                         Fraction f1 = new Fraction();
                                         Fraction f2 = new Fraction();
+                                        Console.WriteLine("\n==============================================================================================\n" +
+                                            "Attention! The value of the numerator and denominator must be at least 1 and a maximum of 20." +
+                                            "\n==============================================================================================\n");
                                         if (f1.input() == null)
                                         {
                                             Console.WriteLine("Exit to the main menu.....");
@@ -221,6 +234,58 @@ namespace HW_3_Class_Fraction
 
                                             Console.ReadKey();
                                         }
+                                    }
+                                    break;
+                                case 5:
+                                    {
+                                        Fraction f1 = new Fraction();
+                                        Fraction f2 = new Fraction();
+                                        Console.WriteLine("\n==============================================================================================\n" +
+                                            "Attention! The value of the numerator and denominator must be at least 1 and a maximum of 20." +
+                                            "\n==============================================================================================\n");
+                                        if (f1.input() == null)
+                                        {
+                                            Console.WriteLine("Exit to the main menu.....");
+                                            Console.ReadKey();
+                                        }
+                                        else if (f2.input() == null)
+                                        {
+                                            Console.WriteLine("Exit to the main menu.....");
+                                            Console.ReadKey();
+                                        }
+                                        else
+                                        {
+                                            bool condition1 = (f1 + f2) >= 1;
+                                            bool condition2 = false;
+                                            if (condition1) condition2 = (f1 + f2) >= 2;
+                                            Console.WriteLine($"Condition №-1 : ({f1} + {f2}) >= 1 ?");
+                                            Console.WriteLine($"Condition №-1 : ({f1} + {f2}) >= 2 ?");
+                                            if (condition1 && condition2) Console.WriteLine("Both conditions are met");
+                                            else if (condition1 || condition2) Console.WriteLine("One of the conditions is met");
+                                            else Console.WriteLine("Both conditions are not met");
+                                            Console.ReadKey();
+                                        }
+                                    }
+                                    break;
+                                case 6:
+                                    {
+                                        double real_number;
+
+                                        Console.Write("Input real_number : ");
+                                        string input = Console.ReadLine();
+
+                                        if (double.TryParse(input, out real_number))
+                                        {
+                                            Console.WriteLine("You input real number : " + real_number);
+                                            Fraction f1 = (Fraction)real_number;
+                                            Console.WriteLine($"Your real number {real_number} == (fraction) {f1}");
+                                            f1.Print();
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("You input incorrect value");
+                                        }
+                                        Console.ReadKey();
                                     }
                                     break;
 
