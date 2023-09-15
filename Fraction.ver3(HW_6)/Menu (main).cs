@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HW_3_Class_Fraction
+namespace Class_Fraction
 {
     internal class Menu__main_
     {
@@ -20,7 +21,7 @@ namespace HW_3_Class_Fraction
             "Division",
             "Comparing",
             "Logic comparing",
-            "A real number in a fraction",
+            "Transformation",
             "Exit"
         };
 
@@ -269,23 +270,7 @@ namespace HW_3_Class_Fraction
                                     break;
                                 case 6:
                                     {
-                                        double real_number;
-
-                                        Console.Write("Input real_number : ");
-                                        string input = Console.ReadLine();
-
-                                        if (double.TryParse(input, out real_number))
-                                        {
-                                            Console.WriteLine("You input real number : " + real_number);
-                                            Fraction f1 = (Fraction)real_number;
-                                            Console.WriteLine($"Your real number {real_number} == (fraction) {f1}");
-                                            f1.Print();
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("You input incorrect value");
-                                        }
-                                        Console.ReadKey();
+                                        Transformation();
                                     }
                                     break;
 
@@ -295,6 +280,137 @@ namespace HW_3_Class_Fraction
                 }
 
                 // Сброс фона в черный после обработки клавиши
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+        }
+
+        static void Transformation()
+        {
+            List<string> menu_items = new List<string>()
+            {
+                "Converting a fraction to a real number",
+                "Converting a real number to a fraction",
+                "Converting a fraction to a array bytes",
+                "Exit"
+            };
+
+            int selected_item_index = 0;
+
+            while (true)
+            {
+                Console.Clear();
+
+                Console.WriteLine("\tFraction calculator\n" +
+                    "Select action :");
+                for (int i = 0; i < menu_items.Count; i++)
+                {
+                    if (i == selected_item_index)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.BackgroundColor = ConsoleColor.Black;
+                    }
+
+                    Console.WriteLine("\t\t" + menu_items[i]);
+                }
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.WriteLine("\n==============================================================\n");
+
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (selected_item_index > 0)
+                        {
+                            selected_item_index--;
+                        }
+                        break;
+
+                    case ConsoleKey.DownArrow:
+                        if (selected_item_index < menu_items.Count - 1)
+                        {
+                            selected_item_index++;
+                        }
+                        break;
+                    case ConsoleKey.Enter:
+                        {
+                            if (selected_item_index == menu_items.Count - 1)
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                switch (selected_item_index)
+                                {
+                                    case 0:
+                                        {
+                                            Fraction f1 = new Fraction();
+                                            Console.WriteLine("\n==============================================================================================\n" +
+                                                "Attention! The value of the numerator and denominator must be at least 1 and a maximum of 20." +
+                                                "\n==============================================================================================\n");
+                                            if (f1.input() == null)
+                                            {
+                                                Console.WriteLine("Exit to the main menu.....");
+                                                Console.ReadKey();
+                                            }
+                                            else
+                                            {
+                                                double real_number = f1;
+                                                Console.WriteLine($"A real number from the fraction {f1} = {real_number}");
+                                                Console.ReadKey();
+                                            }
+                                        }
+                                        break;
+                                    case 1:
+                                        {
+                                            double real_number;
+
+                                            Console.Write("Input real_number : ");
+                                            string input = Console.ReadLine();
+
+                                            if (double.TryParse(input, out real_number))
+                                            {
+                                                Console.WriteLine("You input real number : " + real_number);
+                                                Fraction f1 = (Fraction)real_number;
+                                                Console.WriteLine($"Your real number {real_number} == (fraction) {f1}");
+                                                f1.Print();
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("You input incorrect value");
+                                            }
+                                            Console.ReadKey();
+                                        }
+                                        break;
+                                    case 2:
+                                        {
+                                            Fraction f1 = new Fraction();
+                                            Console.WriteLine("\n==============================================================================================\n" +
+                                                "Attention! The value of the numerator and denominator must be at least 1 and a maximum of 20." +
+                                                "\n==============================================================================================\n");
+                                            if (f1.input() == null)
+                                            {
+                                                Console.WriteLine("Exit to the main menu.....");
+                                                Console.ReadKey();
+                                            }
+                                            else
+                                            {
+                                                byte[] arr_fraction_bytes = (byte[])f1;
+                                                Console.WriteLine($"A array bytes(little-endian byte order) from the fraction {f1} = {BitConverter.ToString(arr_fraction_bytes)}");
+                                                Console.ReadKey();
+                                            }
+                                        }
+                                        break;
+                                }
+                            }
+                            break;
+                        }
+                }
                 Console.BackgroundColor = ConsoleColor.Black;
             }
         }

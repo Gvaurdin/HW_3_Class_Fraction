@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Numerics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HW_3_Class_Fraction
+namespace Class_Fraction
 {
     internal class Fraction
     {
@@ -41,6 +42,58 @@ namespace HW_3_Class_Fraction
             int ch = (int)number;
             return new Fraction(ch, zn);
         }
+
+        public static implicit operator double (Fraction f)
+        {
+            if (!f.CheckDenominator())
+            {
+                return (double)f.CH / f.ZN;
+            }
+            else return 0;
+        }
+
+        /*
+         * Тип BigInteger является неизменяемым типом, который представляет произвольно большое целое число,
+         * значение которого теоретически не имеет верхней или нижней границы
+         * Для доступа необходимо войти в обозреватель решений, далее в ссылках подключить SystemNumerics,
+         * далее подключить SystemNummerics в исполнительном файле!
+         */
+        //public static implicit operator BigInteger(Fraction f)
+        //{
+        //    if (!f.CheckDenominator())
+        //    {
+        //        return (BigInteger)f.CH / f.ZN;
+        //    }
+        //    else return 0;
+        //}
+
+        public static explicit operator byte[] (Fraction f)
+        {
+            if (!f.CheckDenominator())
+            {
+                int ch = f.CH;
+                int zn = f.zn;
+
+                byte[] ch_bytes = BitConverter.GetBytes(ch);
+                byte[] zn_bytes = BitConverter.GetBytes(zn);
+
+                byte[] result_bytes = new byte[ch_bytes.Length + zn_bytes.Length];
+
+                Array.Copy(ch_bytes, result_bytes, ch_bytes.Length);
+                Array.Copy(zn_bytes,0, result_bytes,ch_bytes.Length, zn_bytes.Length);
+                return result_bytes;
+            }
+            /*
+             * denominatorBytes - исходный массив, из которого мы копируем данные.
+             * 0 - начальный индекс в массиве denominatorBytes.Мы начинаем копирование с самого начала этого массива.
+             * result_bytes - целевой массив, в который мы копируем данные.
+             * ch_bytes.Length - начальный индекс в массиве resultBytes, с которого начинается вставка данных из zn_bytes.
+             * zn_bytes.Length - количество элементов, которое мы копируем из zn_bytes в result_bytes.
+             * Это копирует данные знаменателя в массив result_bytes начиная с позиции, следующей за числителем.
+             */
+            else return null;
+        }
+
 
         public void Print()
         {
